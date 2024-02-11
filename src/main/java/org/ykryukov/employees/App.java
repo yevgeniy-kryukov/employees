@@ -7,14 +7,14 @@ public class App
         Generable gen = new Generator();
         Person<Integer> employee = new Employee<Integer>(
                 gen.generateInt(),
-                gen.generateString(50),
-                gen.generateString(50),
-                gen.generateString(50),
+                gen.generateString(25),
+                gen.generateString(25),
+                gen.generateString(25),
                 gen.generateDate(),
-                gen.generateString(50),
-                gen.generateString(50),
-                gen.generateString(50),
-                gen.generateString(50),
+                gen.generateString(25),
+                gen.generateString(25),
+                gen.generateString(25),
+                gen.generateString(25),
                 gen.generateDate(),
                 gen.generateDate(),
                 null

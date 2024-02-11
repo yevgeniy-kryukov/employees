@@ -11,8 +11,8 @@ public interface Generable {
         return new Random().nextInt(1000000);
     }
 
-    public default String generateString(int length) {
-        byte[] array = new byte[length];
+    public default String generateString(int targetStringLength) {
+        byte[] array = new byte[targetStringLength];
         new Random().nextBytes(array);
         return new String(array, StandardCharsets.UTF_8);
     }
