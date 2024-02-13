@@ -2,6 +2,8 @@ package org.ykryukov.employees;
 
 import java.util.Date;
 
+import static org.ykryukov.employees.Util.dateToString;
+
 public class Person<I> {
     private final I id;
     private String LastName;
@@ -114,7 +116,7 @@ public class Person<I> {
                 ", LastName='" + LastName + '\'' +
                 ", FirstName='" + FirstName + '\'' +
                 ", FatherName='" + FatherName + '\'' +
-                ", DOB=" + DOB +
+                ", DOB=" + dateToString(DOB) +
                 ", CountryOfResidence='" + CountryOfResidence + '\'' +
                 ", CityOfResidence='" + CityOfResidence + '\'' +
                 ", ResidenceAddress='" + ResidenceAddress + '\'' +

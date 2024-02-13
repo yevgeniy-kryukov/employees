@@ -2,7 +2,9 @@ package org.ykryukov.employees;
 
 import java.util.Date;
 
-public class Employee<I> extends Person<I> {
+import static org.ykryukov.employees.Util.dateToString;
+
+public class Employee<I> extends Person<I> implements Comparable<Employee> {
     private String positionAtWork;
     private Date dateHiring;
     private Date dateDismissal;
@@ -66,14 +68,19 @@ public class Employee<I> extends Person<I> {
                 ", LastName='" + getLastName() + '\'' +
                 ", FirstName='" + getFirstName() + '\'' +
                 ", FatherName='" + getFatherName() + '\'' +
-                ", DOB=" + getDOB() +
+                ", DOB=" + dateToString(getDOB()) +
                 ", CountryOfResidence='" + getCountryOfResidence() + '\'' +
                 ", CityOfResidence='" + getCityOfResidence() + '\'' +
                 ", ResidenceAddress='" + getResidenceAddress() + '\'' +
                 ", positionAtWork='" + positionAtWork + '\'' +
-                ", dateHiring=" + dateHiring +
-                ", dateDismissal=" + dateDismissal +
+                ", dateHiring=" + dateToString(dateHiring) +
+                ", dateDismissal=" + dateToString(dateDismissal) +
                 ", manager=" + manager +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Employee o) {
+        return this.getLastName().compareTo(o.getLastName());
     }
 }

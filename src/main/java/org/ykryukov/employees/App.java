@@ -1,26 +1,37 @@
 package org.ykryukov.employees;
 
-public class App
-{
-    public static void main( String[] args )
-    {
-        Generable gen = new Generator();
-        Person<Integer> employee = new Employee<Integer>(
-                gen.generateInt(),
-                gen.generateString(25),
-                gen.generateString(25),
-                gen.generateString(25),
-                gen.generateDate(),
-                gen.generateString(25),
-                gen.generateString(25),
-                gen.generateString(25),
-                gen.generateString(25),
-                gen.generateDate(),
-                gen.generateDate(),
-                null
-        );
+import java.util.*;
 
-        employee.setLastName("test1");
-        System.out.println(employee);
+public class App {
+    private static Set<Employee<Integer>> getEmployees() {
+        Set<Employee<Integer>> employeeSet = new HashSet<>();
+        Generable gen = new Generator();
+        for (int i = 0; i < 200; i++) {
+            Employee<Integer> employee = new Employee<Integer>(
+                    gen.generateInt(),
+                    gen.generateString(10),
+                    gen.generateString(10),
+                    gen.generateString(10),
+                    gen.generateDate(),
+                    gen.generateString(10),
+                    gen.generateString(10),
+                    gen.generateString(25),
+                    gen.generateString(15),
+                    gen.generateDate(),
+                    gen.generateDate(),
+                    null
+            );
+            employeeSet.add(employee);
+        }
+        return employeeSet;
+    }
+
+    public static void main(String[] args) {
+        Set<Employee<Integer>> employeeSet = getEmployees();
+
+        Report.printEmployeesGroupedByDOB(employeeSet);
+
+        //employee.setLastName("test1");
+        //System.out.println(employee);
     }
 }
