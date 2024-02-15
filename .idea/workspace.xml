@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d69729-e5f3-40c0-b4a8-decd5cd11e41" name="Changes" comment="fixed error in method &quot;generateString&quot;">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Report.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Util.java" afterDir="false" />
+    <list default="true" id="d8d69729-e5f3-40c0-b4a8-decd5cd11e41" name="Changes" comment="new report printEmployeesGroupedByDOB">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Report.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +102,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707674432518</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="new report printEmployeesGroupedByDOB">
+      <option name="closed" value="true" />
+      <created>1707839305439</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1707839305439</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -121,6 +126,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixed error in method &quot;generateString&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed error in method &quot;generateString&quot;" />
+    <MESSAGE value="new report printEmployeesGroupedByDOB" />
+    <option name="LAST_COMMIT_MESSAGE" value="new report printEmployeesGroupedByDOB" />
   </component>
 </project>
