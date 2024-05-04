@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 class TestClass {
     public static void print(List<? super String> list) {
         list.add("Hello World!");
-        System.out.println(list.get(0));
+        System.out.println(list);
     }
 }
 
@@ -35,9 +35,12 @@ public class App {
         return employeeSet;
     }
 
-    private static void collisianTest(List<String> list) {
-        System.out.println("collisianTest: ");
-        Map<String, String> map = list.stream().collect(Collectors.toMap(el -> el.split("\\|")[0], el -> el.split("\\|")[1], (oldVal, newVal) -> oldVal + ", " + newVal, HashMap::new));
+    private static void collisionTest(List<String> list) {
+        System.out.println("collisionTest: ");
+        Map<String, String> map = list.stream().collect(
+                Collectors.toMap(el -> el.split("\\|")[0],
+                        el -> el.split("\\|")[1],
+                        (oldVal, newVal) -> oldVal + ", " + newVal, HashMap::new));
         System.out.println(map);
     }
 
@@ -57,8 +60,9 @@ public class App {
 
     private static void genericTest() {
         System.out.println("genericTest: ");
-        List<String> list2 = new ArrayList<>();
-        //list2.add("Hello World!");
+        Object ob = "Welcome";
+        List<Object> list2 = new ArrayList<>();
+        list2.add(ob);
         TestClass.print(list2);
     }
 
@@ -68,6 +72,8 @@ public class App {
         Report.printEmployeesGroupedByDOB(employeeSet);
         System.out.println("---------------------------------------------------");
         Report.printEmployeesGroupedByCountryAndCityResidence(employeeSet);
+        System.out.println("---------------------------------------------------");
+        Report.printEmployeesGroupedByDateHiring(employeeSet);
 
         List<String> list = new ArrayList<>();
         list.add("1|first");
@@ -75,10 +81,61 @@ public class App {
         list.add("2|third");
         list.add("4|fourth");
 
-        collisianTest(list);
+        collisionTest(list);
         internalFuncInterfaceTest(list);
         genericTest();
 
+        List<String> list2 = new ArrayList<>();
+        list2.add("id|name|project_role|fluent_english|salary|department");
+        list2.add("1|Евгений|программист|1|3050|департамент разработки");
+        list2.add("2|Анатолий|менеджер|0|2500|департамент консалтинга");
+        list2.add("3|Надежда|аналитик|1|1300|департамент консалтинга");
+        list2.add("4|Галина|менеджер|0|4000|департамент консалтинга");
+        list2.add("5|Андрей|программист|0|3800|департамент разработки");
+        list2.add("6|Екатерина|программист|0|2000|департамент разработки");
+
+        Function<String, String> fnStrParser = (str) -> str.split("\\|")[1];
+        Function<String, Boolean> fnFilter = (str) -> str.split("\\|")[0].equals("id");
+
+        // Collectors samples
+        System.out.println("Collectors samples: ");
+        System.out.println("---------------------------------------------------");
+        // Accumulate names into a List
+        //List<String> listNames = list2.stream().filter(el -> !fnFilter.apply(el)).map(el->el.split("\\|")[1]).collect(Collectors.toList());
+        List<String> listNames = list2.stream().filter(el -> !fnFilter.apply(el)).map(fnStrParser).toList();
+        System.out.println("Accumulate names into a List: ");
+        System.out.println(listNames);
+        System.out.println("---------------------------------------------------");
+        // Accumulate names into a TreeSet
+        SortedSet<String> listNamesSorted = list2.stream().filter(el -> !fnFilter.apply(el)).map(fnStrParser).collect(Collectors.toCollection(TreeSet::new));
+        System.out.println("Accumulate names into a TreeSet: ");
+        System.out.println(listNamesSorted);
+        System.out.println("---------------------------------------------------");
+        // Convert elements to strings and concatenate them, separated by semicolons
+        String strNames = list2.stream().filter(el -> !fnFilter.apply(el)).map(fnStrParser).collect(Collectors.joining(";"));
+        System.out.println("Convert elements to strings and concatenate them, separated by commas: ");
+        System.out.println(strNames);
+        System.out.println("---------------------------------------------------");
+        // Compute sum of salaries of employees
+        //Integer sum = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.summingInt(el -> Integer.valueOf(el.split("\\|")[4])));
+        int sum = list2.stream().filter(el -> !fnFilter.apply(el)).mapToInt(el -> Integer.parseInt(el.split("\\|")[4])).sum();
+        System.out.println("Compute sum of salaries of employees: " + sum);
+        System.out.println("---------------------------------------------------");
+        // Group employees by department
+        Map<String, Set<String>> map = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.groupingBy(el -> el.split("\\|")[5], Collectors.toSet()));
+        System.out.println("Group employees by department: ");
+        System.out.println(map);
+        System.out.println("---------------------------------------------------");
+        // Compute sum of salaries by department
+        Map<String, Integer> map2 = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.groupingBy(el -> el.split("\\|")[5],
+                Collectors.summingInt(el -> Integer.parseInt(el.split("\\|")[4]))));
+        System.out.println("Compute sum of salaries by department: ");
+        System.out.println(map2);
+        System.out.println("---------------------------------------------------");
+        // Partition employees by fluent english
+        Map<Boolean, Set<String>> map3 = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.partitioningBy(el->el.split("\\|")[3].equals("1"), Collectors.toSet()));
+        System.out.println("Partition employees by fluent english: ");
+        System.out.println(map3);
         //employee.setLastName("test1");
         //System.out.println(employee);
     }

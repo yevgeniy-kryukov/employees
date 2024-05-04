@@ -4,7 +4,7 @@ import java.util.Date;
 
 import static org.ykryukov.employees.Util.dateToString;
 
-public class Employee<I> extends Person<I> implements Comparable<Employee> {
+public class Employee<I> extends Person<I> implements Comparable<Employee<I>> {
     private String positionAtWork;
     private Date dateHiring;
     private Date dateDismissal;
@@ -21,7 +21,7 @@ public class Employee<I> extends Person<I> implements Comparable<Employee> {
                     String positionAtWork,
                     Date dateHiring,
                     Date dateDismissal,
-                    Person<I> manager) {
+                    Employee<I> manager) {
         super(id, lastName, firstName, fatherName, DOB, countryOfResidence, cityOfResidence, residenceAddress);
         this.positionAtWork = positionAtWork;
         this.dateHiring = dateHiring;

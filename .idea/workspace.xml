@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8d69729-e5f3-40c0-b4a8-decd5cd11e41" name="Changes" comment="modified report printEmployeesGroupedByDOB">
+    <list default="true" id="d8d69729-e5f3-40c0-b4a8-decd5cd11e41" name="Changes" comment="refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ykryukov/employees/Report.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,13 +79,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-17.0.9-corretto-17.0.9-249ae16d76d6-98297cd8" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -117,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707998509546</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="refactoring">
+      <option name="closed" value="true" />
+      <created>1708082614653</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1708082614653</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -135,17 +138,7 @@
     <MESSAGE value="fixed error in method &quot;generateString&quot;" />
     <MESSAGE value="new report printEmployeesGroupedByDOB" />
     <MESSAGE value="modified report printEmployeesGroupedByDOB" />
-    <option name="LAST_COMMIT_MESSAGE" value="modified report printEmployeesGroupedByDOB" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/ykryukov/employees/App.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
   </component>
 </project>

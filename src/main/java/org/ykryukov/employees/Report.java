@@ -51,4 +51,27 @@ public class Report {
             }
         }
     }
+
+    public static void printEmployeesGroupedByDateHiring(Set<Employee<Integer>> employeeSet) {
+        SortedMap<Date, SortedSet<Employee<Integer>>> hiringMap = employeeSet.stream()
+                .collect(Collectors.groupingBy(Employee::getDateHiring, TreeMap::new,
+                        Collectors.mapping(emp -> emp, Collectors.toCollection(TreeSet::new))));
+
+        SortedMap<Date, SortedSet<Employee<Integer>>> hiringMapFiltered = hiringMap.entrySet().stream()
+                .filter(emp -> emp.getValue().size() > 1)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldVal, newVal) -> oldVal, TreeMap::new));
+
+        int counter = 0;
+        System.out.println("printEmployeesGroupedByDateHiring: ");
+        for (Map.Entry<Date, SortedSet<Employee<Integer>>> entry : hiringMapFiltered.entrySet()) {
+            counter++;
+            System.out.println("Date hiring: " + entry.getKey());
+            for (Employee<Integer> emp : entry.getValue()) {
+                System.out.println(emp);
+            }
+            if (counter > 10) {
+                break;
+            }
+        }
+    }
 }
