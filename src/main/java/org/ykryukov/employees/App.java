@@ -28,7 +28,10 @@ public class App {
                     gen.generateString(15),
                     gen.generateDate(),
                     gen.generateDate(),
-                    null
+                    null,
+                    gen.generateBoolean(),
+                    gen.generateDouble(),
+                    gen.generateString(20)
             );
             employeeSet.add(employee);
         }
@@ -66,36 +69,22 @@ public class App {
         TestClass.print(list2);
     }
 
-    public static void main(String[] args) {
-        Set<Employee<Integer>> employeeSet = getEmployees();
-
-        Report.printEmployeesGroupedByDOB(employeeSet);
-        System.out.println("---------------------------------------------------");
-        Report.printEmployeesGroupedByCountryAndCityResidence(employeeSet);
-        System.out.println("---------------------------------------------------");
-        Report.printEmployeesGroupedByDateHiring(employeeSet);
-
-        List<String> list = new ArrayList<>();
-        list.add("1|first");
-        list.add("2|second");
-        list.add("2|third");
-        list.add("4|fourth");
-
-        collisionTest(list);
-        internalFuncInterfaceTest(list);
-        genericTest();
-
+    private static List<String> getStrings() {
         List<String> list2 = new ArrayList<>();
-        list2.add("id|name|project_role|fluent_english|salary|department");
-        list2.add("1|Евгений|программист|1|3050|департамент разработки");
-        list2.add("2|Анатолий|менеджер|0|2500|департамент консалтинга");
-        list2.add("3|Надежда|аналитик|1|1300|департамент консалтинга");
-        list2.add("4|Галина|менеджер|0|4000|департамент консалтинга");
-        list2.add("5|Андрей|программист|0|3800|департамент разработки");
-        list2.add("6|Екатерина|программист|0|2000|департамент разработки");
+        list2.add("id|name|position_at_work|fluent_english|salary|department|date_hiring|date_dismissal|manager");
+        list2.add("1|Евгений|программист|1|3050|департамент разработки|||");
+        list2.add("2|Анатолий|менеджер|0|2500|департамент консалтинга|||");
+        list2.add("3|Надежда|аналитик|1|1300|департамент консалтинга|||");
+        list2.add("4|Галина|менеджер|0|4000|департамент консалтинга|||");
+        list2.add("5|Андрей|программист|0|3800|департамент разработки|||");
+        list2.add("6|Екатерина|программист|0|2000|департамент разработки|||");
+        list2.add("7|Надежда|менеджер|1|5000|департамент консалтинга|||");
+        return list2;
+    }
 
-        Function<String, String> fnStrParser = (str) -> str.split("\\|")[1];
-        Function<String, Boolean> fnFilter = (str) -> str.split("\\|")[0].equals("id");
+    private static void collectorsSamples(List<String> list2) {
+        Function<String, String> fnStrParser = (str) -> str.split("\\|", -1)[1];
+        Function<String, Boolean> fnFilter = (str) -> str.split("\\|", -1)[0].equals("id");
 
         // Collectors samples
         System.out.println("Collectors samples: ");
@@ -118,25 +107,60 @@ public class App {
         System.out.println("---------------------------------------------------");
         // Compute sum of salaries of employees
         //Integer sum = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.summingInt(el -> Integer.valueOf(el.split("\\|")[4])));
-        int sum = list2.stream().filter(el -> !fnFilter.apply(el)).mapToInt(el -> Integer.parseInt(el.split("\\|")[4])).sum();
+        int sum = list2.stream().filter(el -> !fnFilter.apply(el)).mapToInt(el -> Integer.parseInt(el.split("\\|", -1)[4])).sum();
         System.out.println("Compute sum of salaries of employees: " + sum);
         System.out.println("---------------------------------------------------");
         // Group employees by department
-        Map<String, Set<String>> map = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.groupingBy(el -> el.split("\\|")[5], Collectors.toSet()));
+        Map<String, Set<String>> map = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.groupingBy(el -> el.split("\\|", -1)[5], Collectors.toSet()));
         System.out.println("Group employees by department: ");
         System.out.println(map);
         System.out.println("---------------------------------------------------");
         // Compute sum of salaries by department
-        Map<String, Integer> map2 = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.groupingBy(el -> el.split("\\|")[5],
-                Collectors.summingInt(el -> Integer.parseInt(el.split("\\|")[4]))));
+        Map<String, Integer> map2 = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.groupingBy(el -> el.split("\\|", -1)[5],
+                Collectors.summingInt(el -> Integer.parseInt(el.split("\\|", -1)[4]))));
         System.out.println("Compute sum of salaries by department: ");
         System.out.println(map2);
         System.out.println("---------------------------------------------------");
         // Partition employees by fluent english
-        Map<Boolean, Set<String>> map3 = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.partitioningBy(el->el.split("\\|")[3].equals("1"), Collectors.toSet()));
+        Map<Boolean, Set<String>> map3 = list2.stream().filter(el -> !fnFilter.apply(el)).collect(Collectors.partitioningBy(el -> el.split("\\|", -1)[3].equals("1"), Collectors.toSet()));
         System.out.println("Partition employees by fluent english: ");
         System.out.println(map3);
-        //employee.setLastName("test1");
-        //System.out.println(employee);
+    }
+
+    public static void main(String[] args) {
+        Set<Employee<Integer>> employeeSet = getEmployees();
+        List<Employee<Integer>> employeeList = Util.listStringToEmployee(getStrings());
+
+        Report.printEmployeesGroupedByDOB(employeeSet);
+        System.out.println("---------------------------------------------------");
+        Report.printEmployeesGroupedByCountryAndCityResidence(employeeSet);
+        System.out.println("---------------------------------------------------");
+        Report.printEmployeesNames(employeeList);
+        System.out.println("---------------------------------------------------");
+        Report.printUniqNamesSeparatedByCommas(employeeList);
+        System.out.println("---------------------------------------------------");
+        Report.printSumOfSalaries(employeeList);
+        System.out.println("---------------------------------------------------");
+        Report.printGroupEmployeesByDepartment(employeeList);
+        System.out.println("---------------------------------------------------");
+        Report.printSumOfSalariesByDepartment(employeeList);
+        System.out.println("---------------------------------------------------");
+        Report.printPartitionEmployeesByFluentEnglish(employeeList);
+        System.out.println("---------------------------------------------------");
+        Report.printEmpMaxSalary(employeeList);
+
+//        List<String> list = new ArrayList<>();
+//        list.add("1|first");
+//        list.add("2|second");
+//        list.add("2|third");
+//        list.add("4|fourth");
+//
+//        collisionTest(list);
+//        internalFuncInterfaceTest(list);
+//        genericTest();
+
+
+        //collectorsSamples(getStrings());
+
     }
 }

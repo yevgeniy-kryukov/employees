@@ -23,4 +23,12 @@ public interface Generable {
         final int day = new Random().nextInt(1, 28);
         return new GregorianCalendar(year, month, day).getTime();
     }
+
+    public default boolean generateBoolean() {
+        return new Random().nextBoolean();
+    }
+
+    public default double generateDouble() {
+        return new Random().nextDouble();
+    }
 }
