@@ -1,9 +1,13 @@
 package org.ykryukov.employees;
 
+import lombok.Builder;
+
 import java.util.Date;
 
+import static org.ykryukov.employees.Util.dateToString;
+
 public class Person<I> {
-    private final I id;
+    final private I id;
     private String LastName;
     private String FirstName;
     private String FatherName;
@@ -114,7 +118,7 @@ public class Person<I> {
                 ", LastName='" + LastName + '\'' +
                 ", FirstName='" + FirstName + '\'' +
                 ", FatherName='" + FatherName + '\'' +
-                ", DOB=" + DOB +
+                ", DOB=" + dateToString(DOB) +
                 ", CountryOfResidence='" + CountryOfResidence + '\'' +
                 ", CityOfResidence='" + CityOfResidence + '\'' +
                 ", ResidenceAddress='" + ResidenceAddress + '\'' +
