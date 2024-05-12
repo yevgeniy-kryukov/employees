@@ -148,6 +148,14 @@ public class App {
         Report.printPartitionEmployeesByFluentEnglish(employeeList);
         System.out.println("---------------------------------------------------");
         Report.printEmpMaxSalary(employeeList);
+        System.out.println("---------------------------------------------------");
+        Report.printMaxSalaryByDepartment(employeeList);
+        System.out.println("---------------------------------------------------");
+        Report.printEmployeesListSortedByNames(employeeList);
+        System.out.println("---------------------------------------------------");
+        Report.printEmployeesListSortedBySalary(employeeList);
+        System.out.println("---------------------------------------------------");
+        Report.printEmployeesListSortedByDepartmentAndSalary(employeeList);
 
 //        List<String> list = new ArrayList<>();
 //        list.add("1|first");

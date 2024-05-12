@@ -130,4 +130,41 @@ public class Report {
         }
     }
 
+    public static void printMaxSalaryByDepartment(List<Employee<Integer>> employeeList) {
+        final SortedMap<String, Optional<Employee<Integer>>> salaryByDepMap = employeeList.stream()
+                .collect(Collectors.groupingBy(el -> el.getDepartment(), TreeMap::new, Collectors.maxBy(Comparator.comparingDouble(el -> el.getSalary()))));
+        for (Map.Entry<String, Optional<Employee<Integer>>> entry : salaryByDepMap.entrySet()) {
+            System.out.print("Department: " + entry.getKey());
+            if (entry.getValue().isPresent()) {
+                System.out.print(", max salary: " + entry.getValue().get().getSalary());
+            }
+            System.out.print("\n");
+        }
+    }
+
+    public static void printEmployeesListSortedByNames(List<Employee<Integer>> employeeList) {
+        final List<Employee<Integer>> sortedList = employeeList.stream().sorted().collect(Collectors.toList());
+        System.out.println("printEmployeesListSortedByNames: ");
+        System.out.println(sortedList);
+    }
+
+    public static void printEmployeesListSortedBySalary(List<Employee<Integer>> employeeList) {
+        final List<Employee<Integer>> sortedList = employeeList.stream()
+                .sorted(Comparator.comparing(el -> el.getSalary(), Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+        System.out.println("printEmployeesListSortedBySalary: ");
+        System.out.println(sortedList);
+    }
+
+//    public static void printEmployeesListSortedBySalaryAndName(List<Employee<Integer>> employeeList) {
+//        Comparator<Employee<Integer>> employeeComparator = Comparator.comparingDouble(el->el.getSalary());
+//    }
+
+    public static void printEmployeesListSortedByDepartmentAndSalary(List<Employee<Integer>> employeeList) {
+        final List<Employee<Integer>> sortedList = employeeList.stream()
+                .sorted(new EmployeeDepartmentComparator().thenComparing(new EmployeeSalaryComparator())).toList();
+        System.out.println("printEmployeesListSortedByDepartmentAndSalary: ");
+        System.out.println(sortedList);
+    }
+
 }
